@@ -1,4 +1,4 @@
-body {
+/* body {
   background-color: #945555;
 }
 
@@ -59,7 +59,7 @@ img {
 
 /* Styling fr */
 
-header {
+/* header {
   position: fixed;
   width: 100vw;
   background-color: rgb(68, 98, 147);
@@ -148,17 +148,17 @@ header ul li a:hover {
     font-size: 1.1rem;
     cursor: pointer; */
 
-    display: none; /* Skjul knappen som standard */
-  }
+/* display: none; /* Skjul knappen som standard */
+/* }
 
   .main-menu ul {
     display: flex;
     justify-content: flex-end;
     overflow-x: auto;
   }
-}
+} */
 
-@media (min-width: 1200px) {
+/* @media (min-width: 1200px) {
   #popop article {
     width: 50vh;
   }
@@ -178,8 +178,8 @@ header ul li a:hover {
     padding: 300px;
     padding-top: 70px;
   }
-  .logo {
-    font-weight: bold;
+  .logo { */
+/* font-weight: bold;
     font-family: "Chonburi";
     color: white;
     padding-left: 70px;
@@ -198,12 +198,12 @@ header ul li a:hover {
     font-size: 1.1rem;
     cursor: pointer; */
 
-    display: none; /* Skjul knappen som standard */
-  }
+/* display: none; /* Skjul knappen som standard */
+/* }
 
   .main-menu ul {
     display: flex;
     justify-content: center;
     font-family: "Chonburi";
   }
-}
+}    */

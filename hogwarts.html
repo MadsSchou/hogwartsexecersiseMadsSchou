@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="style.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Chonburi&family=Coiny&family=Lobster&family=Lobster+Two&family=Luckiest+Guy&family=Open+Sans:wght@300&family=Patua+One&family=Righteous&family=Staatliches&display=swap" rel="stylesheet" />
+
+    <title>Hogwarts</title>
+  </head>
+  <body>
+    <!-- <section id="popop">
+      <article>
+        <h2></h2>
+        <img src="" alt="" class="billedeurl" />
+        <h3>Firstname: <span class="firstname"></span></h3>
+        <p>Lastname: <span class="lastname"></span></p>
+        <p>Middlename: <span class="middlename"></span></p>
+        <p>Nickname: <span class="nickname"></span></p>
+        <p>House: <span class="house"></span></p>
+      </article>
+    </section> -->
+    <!-- <header>
+      <div class="logo">
+        <h1>Hogwarts</h1>
+      </div> -->
+
+    <!-- <nav class="main-menu">
+        <button class="toggle-btn"><img src="medium/burgermenu.svg" alt="Menu" /></button>
+        <ul>
+          <li data-kategori="alle" class="valgt">Alle</li>
+          <li data-kategori="hufflepuff">Hufflepuff</li>
+          <li data-kategori="rawenclaw">Rawenclaw</li>
+          <li data-kategori="gryffindor">Gryffindor</li>
+          <li data-kategori="slytherin">Slytherin</li>
+        </ul>
+      </nav>
+    </header> -->
+
+    <!-- <main id="holder"></main> -->
+
+    <!-- <template>
+      <article>
+        <img src="" alt="" class="billedeurl" />
+        <h3 class="navn"></h3>
+        <p class="firstname"></p>
+        <p class="lastname"></p>
+      </article>
+    </template> -->
+
+    <p>
+      Filter:
+      <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
+      <button class="filter" data-action="filter" data-filter="rawenclaw">Rawenclaw</button>
+      <button class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</button>
+      <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
+      <button class="filter" data-action="filter" data-filter="*">all</button>
+    </p>
+
+    <hr />
+    <!-- 
+    <table id="list">
+      <thead>
+        <tr id="sorting">
+          <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="hufflepuff">Hufflepuff</th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="rawenclaw">Rawenclaw</th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="gryffindor">Gryffindor</th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="slytherin">Slytherin</th>
+        </tr>
+      </thead>
+      <tbody>
+        animal template will be copied and inserted here
+      <-- </tbody> -->
+    <!-- </table> -->
+
+
+          <section id="student_list"></section>
+
+    <template id="student">
+      <tr>
+        <td data-field="house">House</td>
+        <td data-field="hufflepuff">Hufflepuff</td>
+        <td data-field="rawenclaw">Rawenclaw</td>
+        <td data-field="gryffindor">Gryffindor</td>
+        <td data-field="slytherin">Slytherin</td>
+      </tr>
+    </template>
+
+
+
+
+
+
+
+      <template id="student">
+        <article class="student_container">
+          <img
+              data-field="student_img"
+              src="images/potter_h.png"
+              alt="Student picture"
+            />
+            <div class="info">
+              <h4>Fullname: <span class="fullname" data-field="fullname"></span></h4>
+              <h4>House: <span class="house" data-field="house"></span></h4>
+              <p class="student_id"></p>
+              <button class="show_more" data-field="show_more">Show more</button>
+              <div class="badges">
+                <img src="gryffindor.png" alt="crests" data-field="crest" />
+                <!-- <img
+                  src="prefect.png"
+                  alt="prefect"
+                  data-field="prefect"
+                  data-prefect="false"
+                />
+                <img
+                  src="inq_squad.png"
+                  alt="inq. squad"
+                  data-field="inq-squad"
+                  data-inq-squad="false"
+                /> -->
+              </div>
+            </div>
+          </div>
+        </article>
+      </template>
+    <script src="script.js"></script>
+  </body>
+</html>
