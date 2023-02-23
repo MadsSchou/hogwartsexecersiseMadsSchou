@@ -31,7 +31,10 @@ function prepareObjects(data) {
     const student = Object.create(Student);
 
     const nameArray = jsonObject.fullname.trim().split(" ");
-    let firstName, middleName, lastName, nickName;
+    let firstName,
+      middleName,
+      lastName = "",
+      nickName;
     const nickNameIndex = nameArray.findIndex((name, index) => {
       return name.startsWith('"') && name.endsWith('"');
     });
@@ -52,23 +55,25 @@ function prepareObjects(data) {
     }
 
     console.log(nickNameIndex);
-
+    //Get lastname and firstname
     if (lastName) {
       student.lastName = lastName.charAt(0).toUpperCase() + lastName.slice(1).toLowerCase();
     }
 
     student.firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase();
 
+    //Get middlename
     if (middleName) {
       student.middleName = middleName.charAt(0).toUpperCase() + middleName.slice(1).toLowerCase();
     }
+
+    //Get nickname
     if (nickName) {
       student.nickName = nickName.charAt(0).toUpperCase() + nickName.slice(1).toLowerCase();
     }
-
-    student.imgSrc = `./images/${firstName.substring(0, firstName.indexOf(" ")).toLowerCase()}_.png`;
-    student.imgSrc = `./images/${firstName.substring(firstName.lastIndexOf(" ") + 1, firstName.lastIndexOf(" ") + 2).toLowerCase() + firstName.substring(firstName.lastIndexOf(" ") + 2).toLowerCase()}_${firstName.substring(0, 1).toUpperCase().toLowerCase()}.png`;
-    // student.imgSrc = `./images/${jsonObject.fullname.trim().toLowerCase().replace(/\s/g, "_")}.png`;
+    //Studentsimg
+    student.imgSrc = `./assets/images/${lastName.substring(0, firstName.indexOf(" ")).toLowerCase()}_.png`;
+    student.imgSrc = `./assets/images/${lastName.substring(firstName.lastIndexOf(" ") + 1, firstName.lastIndexOf(" ") + 2).toLowerCase() + lastName.substring(firstName.lastIndexOf(" ") + 2).toLowerCase()}_${firstName.substring(0, 1).toUpperCase().toLowerCase()}.png`;
 
     student.house = jsonObject.house.trim().charAt(0).toUpperCase() + jsonObject.house.trim().slice(1).toLowerCase();
     allStudents.push(student);
@@ -88,9 +93,7 @@ function displayStudent(student) {
   clone.querySelector("[data-field=nickname]").innerHTML = student.nickName;
   clone.querySelector("[data-field=lastname]").innerHTML = student.lastName;
   clone.querySelector("[data-field=house]").innerHTML = student.house;
-  clone.querySelector("[data-field=image]").innerHTML = student.image;
-
-  // clone.querySelector("[data-field=student_img]").src = student.imgSrc;
-  // clone.querySelector("[data-field=student_img]").alt = `Picture of ${student.firstName} ${student.lastName}`;
+  clone.querySelector("[data-field=student_img]").src = student.imgSrc;
+  clone.querySelector("[data-field=student_img]").alt = `Picture of ${student.firstName} ${student.lastName}`;
   document.querySelector("#list tbody").appendChild(clone);
 }
