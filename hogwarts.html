@@ -11,8 +11,8 @@
 
     <title>Hogwarts</title>
   </head>
-  <body>
-    <!-- <section id="popop">
+
+  <!-- <section id="popop">
       <article>
         <h2></h2>
         <img src="" alt="" class="billedeurl" />
@@ -23,110 +23,40 @@
         <p>House: <span class="house"></span></p>
       </article>
     </section> -->
-    <!-- <header>
+  <!-- <header>
       <div class="logo">
         <h1>Hogwarts</h1>
       </div> -->
 
-    <!-- <nav class="main-menu">
-        <button class="toggle-btn"><img src="medium/burgermenu.svg" alt="Menu" /></button>
-        <ul>
-          <li data-kategori="alle" class="valgt">Alle</li>
-          <li data-kategori="hufflepuff">Hufflepuff</li>
-          <li data-kategori="rawenclaw">Rawenclaw</li>
-          <li data-kategori="gryffindor">Gryffindor</li>
-          <li data-kategori="slytherin">Slytherin</li>
-        </ul>
-      </nav>
-    </header> -->
+  <hr />
 
-    <!-- <main id="holder"></main> -->
-
-    <!-- <template>
-      <article>
-        <img src="" alt="" class="billedeurl" />
-        <h3 class="navn"></h3>
-        <p class="firstname"></p>
-        <p class="lastname"></p>
-      </article>
-    </template> -->
-
-    <p>
-      Filter:
-      <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
-      <button class="filter" data-action="filter" data-filter="rawenclaw">Rawenclaw</button>
-      <button class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</button>
-      <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
-      <button class="filter" data-action="filter" data-filter="*">all</button>
-    </p>
-
-    <hr />
-    <!-- 
+  <body>
     <table id="list">
       <thead>
-        <tr id="sorting">
-          <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="hufflepuff">Hufflepuff</th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="rawenclaw">Rawenclaw</th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="gryffindor">Gryffindor</th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="slytherin">Slytherin</th>
+        <tr>
+          <th>Firstname</th>
+          <th>Middlename</th>
+          <th>Nickname</th>
+          <th>Lastname</th>
+          <th>House</th>
+          <th>Photo</th>
         </tr>
       </thead>
       <tbody>
-        animal template will be copied and inserted here
-      <-- </tbody> -->
-    <!-- </table> -->
-
-
-          <section id="student_list"></section>
+        <!-- rows of data will go here -->
+      </tbody>
+    </table>
 
     <template id="student">
       <tr>
+        <td data-field="firstname">Firstname</td>
+        <td data-field="middlename">Middlename</td>
+        <td data-field="nickname">Nickname</td>
+        <td data-field="lastname">Lastname</td>
         <td data-field="house">House</td>
-        <td data-field="hufflepuff">Hufflepuff</td>
-        <td data-field="rawenclaw">Rawenclaw</td>
-        <td data-field="gryffindor">Gryffindor</td>
-        <td data-field="slytherin">Slytherin</td>
+        <td><img data-field="image" src="/images/potter_h.png" alt="Student picture" /></td>
       </tr>
     </template>
-
-
-
-
-
-
-
-      <template id="student">
-        <article class="student_container">
-          <img
-              data-field="student_img"
-              src="images/potter_h.png"
-              alt="Student picture"
-            />
-            <div class="info">
-              <h4>Fullname: <span class="fullname" data-field="fullname"></span></h4>
-              <h4>House: <span class="house" data-field="house"></span></h4>
-              <p class="student_id"></p>
-              <button class="show_more" data-field="show_more">Show more</button>
-              <div class="badges">
-                <img src="gryffindor.png" alt="crests" data-field="crest" />
-                <!-- <img
-                  src="prefect.png"
-                  alt="prefect"
-                  data-field="prefect"
-                  data-prefect="false"
-                />
-                <img
-                  src="inq_squad.png"
-                  alt="inq. squad"
-                  data-field="inq-squad"
-                  data-inq-squad="false"
-                /> -->
-              </div>
-            </div>
-          </div>
-        </article>
-      </template>
     <script src="script.js"></script>
   </body>
 </html>
