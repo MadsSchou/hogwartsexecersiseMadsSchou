@@ -3,3 +3,80 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+/*Styling with grid*/
+
+thead {
+  display: none;
+}
+
+button,
+#filter,
+a {
+  padding: 0.3rem;
+  background-color: #ea9a60;
+  border: 1px solid #000;
+  border-radius: 0.3rem;
+  transition: 0.3s;
+  color: #000;
+}
+
+button:hover,
+a:hover {
+  background-color: #000;
+  color: #ea9a60;
+  box-shadow: 1px 1px #ea9a60, 2px 2px #ea9a60, 3px 3px #ea9a60;
+  transform: translateX(-3px);
+}
+
+body {
+  background-image: url("assets/laney-smith-FwNUSwJDZIQ-unsplash.jpg");
+  image-rendering: pixelated;
+}
+
+/*Student css*/
+
+td {
+  color: white;
+}
+h1 {
+  color: white;
+}
+
+#list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+  gap: 10px;
+}
+
+#list thead {
+  grid-column: 1 / -1;
+}
+
+#list thead th {
+  background-color: #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+#list tbody {
+  display: contents;
+}
+
+#list tbody tr {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+#list tbody td {
+  text-align: center;
+}
+
+#list tbody img {
+  max-width: 100%;
+  height: auto;
+}

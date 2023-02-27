@@ -11,26 +11,27 @@
 
     <title>Hogwarts</title>
   </head>
-
-  <!-- <section id="popop">
-      <article>
-        <h2></h2>
-        <img src="" alt="" class="billedeurl" />
-        <h3>Firstname: <span class="firstname"></span></h3>
-        <p>Lastname: <span class="lastname"></span></p>
-        <p>Middlename: <span class="middlename"></span></p>
-        <p>Nickname: <span class="nickname"></span></p>
-        <p>House: <span class="house"></span></p>
-      </article>
-    </section> -->
-  <!-- <header>
+  <body>
+    <header>
       <div class="logo">
         <h1>Hogwarts</h1>
-      </div> -->
+      </div>
 
-  <hr />
+    <div id="filter">
+      Filter:
+      <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
+      <button class="filter" data-action="filter" data-filter="rawenclaw">Rawenclaw</button>
+      <button class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</button>
+      <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
+      <button class="filter" data-action="filter" data-filter="*">All</button>
+    </div>
+    <!-- <nav class="search">        </nav>
 
-  <body>
+
+<nav class="nav_sorting">        </nav> -->
+
+    <hr />
+
     <table id="list">
       <thead>
         <tr>
@@ -43,7 +44,6 @@
         </tr>
       </thead>
       <tbody>
-        <!-- rows of data will go here -->
       </tbody>
     </table>
 
@@ -57,6 +57,28 @@
         <td><img data-field="student_img" src="" alt="Student picture" /></td>
       </tr>
     </template>
+
+    <div id="pop_up">
+      <section class="popup_article">
+        <article class="student_info">
+          <button class="close">&times;</button>
+          <div class="top">
+            <img class="student_img" src="" alt="" />
+            <!-- <img class="crest_img" src="" alt="crests" data-badges="crest" /> -->
+          </div>
+        </article>
+        <article class="info_wrapper">
+          <h3><span id="fullname"></span></h3>
+          <h4>House: <span id="house"></span></h4>
+          <p>Firstname: <span id="firstname"></span></p>
+          <p>Nickname: <span id="nickname"></span></p>
+          <p>Middlename: <span id="middlename"></span></p>
+          <p>Lastname: <span id="lastname"></span></p>
+          <!-- <p>Blood History: <span class="blood"></span></p> -->
+        </article>
+      </section>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>

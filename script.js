@@ -5,7 +5,9 @@ window.addEventListener("DOMContentLoaded", start);
 function start() {
   console.log("ready");
   getData();
+  addEventListeners();
 }
+const globalProps = { chosenFilter: "*" };
 
 const allStudents = [];
 const Student = {
@@ -16,7 +18,18 @@ const Student = {
   image: null,
   house: null,
 };
+function addEventListeners() {
+  document.querySelector(`[data-filter="hufflepuff"]`).addEventListener("click", klikFilter);
+  document.querySelector(`[data-filter="rawenclaw"]`).addEventListener("click", klikFilter);
+  document.querySelector(`[data-filter="gryffindor"]`).addEventListener("click", klikFilter);
+  document.querySelector(`[data-filter="slytherin"]`).addEventListener("click", klikFilter);
+  document.querySelector(`[data-filter="*"]`).addEventListener("click", klikFilter);
+}
 
+function klikFilter(evt) {
+  console.log("klikFilter", evt.target.dataset.filter);
+  console.log();
+}
 async function getData() {
   const response = await fetch("https://petlatkea.dk/2021/hogwarts/students.json");
   const data = await response.json();
@@ -26,6 +39,40 @@ async function getData() {
   displayList();
 }
 
+//Filter on house
+function filterList(theFilteredList) {
+  if (globalProps.chosenFilter === "hufflepuff") {
+    theFilteredList = allStudents.filter(isHufflepuff);
+  } else if (globalProps.chosenFilter === "rawenclaw") {
+    theFilteredList = allStudents.filter(isRawenclaw);
+  } else if (globalProps.chosenFilter === "gryffindor") {
+    theFilteredList = allStudents.filter(isGryffindor);
+  } else if (globalProps.chosenFilter === "slytherin") {
+    theFilteredList = allStudents.filter(isSlytherin);
+  }
+  return theFilteredList;
+}
+
+function isHufflepuff(student) {
+  if (student.type === "hufflepuff") {
+    return true;
+  }
+}
+function isRawenclaw(student) {
+  if (student.type === "rawenclaw") {
+    return true;
+  }
+}
+function isGryffindor(student) {
+  if (student.type === "gryffindor") {
+    return true;
+  }
+}
+function isSlytherin(student) {
+  if (student.type === "slytherin") {
+    return true;
+  }
+}
 function prepareObjects(data) {
   data.forEach((jsonObject) => {
     const student = Object.create(Student);
@@ -95,5 +142,24 @@ function displayStudent(student) {
   clone.querySelector("[data-field=house]").innerHTML = student.house;
   clone.querySelector("[data-field=student_img]").src = student.imgSrc;
   clone.querySelector("[data-field=student_img]").alt = `Picture of ${student.firstName} ${student.lastName}`;
+
   document.querySelector("#list tbody").appendChild(clone);
 }
+const popUp = document.querySelector("#pop_up");
+popUp.classList.add("show");
+//POPUP
+function showDetails(student) {
+  popUp.style.display = "block";
+  popUp.querySelector(".student_img").src = student.imgSrc;
+  popUp.querySelector("#fullname").textContent = `${student.firstName} ${student.nickName} ${student.middleName} ${student.lastName} - Nr. ${student.studentId}`;
+  popUp.querySelector("#house").textContent = student.house;
+  popUp.querySelector("#firstname").textContent = student.firstName;
+  popUp.querySelector("#nickname").textContent = student.nickName;
+  popUp.querySelector("#middlename").textContent = student.middleName;
+  popUp.querySelector("#lastname").textContent = student.lastName;
+  // popUp.querySelector("#pop_up .blood").textContent = student.blood;
+}
+
+// luk popup
+document.querySelector("#luk").addEventListener("click", () => (popUp.style.display = "none"));
+displayList();
