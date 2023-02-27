@@ -16,7 +16,7 @@
       <div class="logo">
         <h1>Hogwarts</h1>
       </div>
-
+  <hr />
     <div id="filter">
       Filter:
       <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
@@ -25,27 +25,31 @@
       <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
       <button class="filter" data-action="filter" data-filter="*">All</button>
     </div>
-    <!-- <nav class="search">        </nav>
+<nav class="nav_search">
+          <div class="search_wrapper">
+            <h3>Searchbar:</h3>
+            <input type="text" name="searchbar" id="searchbar" placeholder="Search here..." />
+          </div>
+        </nav>
 
-
-<nav class="nav_sorting">        </nav> -->
-
-    <hr />
-
-    <table id="list">
+     <table id="list">
       <thead>
-        <tr>
-          <th>Firstname</th>
-          <th>Middlename</th>
-          <th>Nickname</th>
-          <th>Lastname</th>
-          <th>House</th>
-          <th>Photo</th>
+        <tr id="sorting">
+          <h2>Sorting:</h2>
+          <th data-action="sort" data-sort-direction="asc" data-sort="firstname">Firstname</th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="lastname">Lastname</th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="prefect">Prefect</th>
+          <th data-action="sort" data-sort-direction="asc" data-sort="inqsquad">Inqsquad</th>
+
         </tr>
       </thead>
       <tbody>
       </tbody>
     </table>
+  
+
+ 
 
     <template id="student">
       <tr>
@@ -53,19 +57,20 @@
         <td data-field="middlename">Middlename</td>
         <td data-field="nickname">Nickname</td>
         <td data-field="lastname">Lastname</td>
-        <td data-field="house">House</td>
         <td><img data-field="student_img" src="" alt="Student picture" /></td>
+                <td data-field="house">House</td>
+
       </tr>
     </template>
 
-    <div id="pop_up">
+    <!-- <div id="pop_up">
       <section class="popup_article">
         <article class="student_info">
           <button class="close">&times;</button>
           <div class="top">
-            <img class="student_img" src="" alt="" />
+            <img class="student_img" src="" alt="" /> -->
             <!-- <img class="crest_img" src="" alt="crests" data-badges="crest" /> -->
-          </div>
+          <!-- </div>
         </article>
         <article class="info_wrapper">
           <h3><span id="fullname"></span></h3>
@@ -73,11 +78,11 @@
           <p>Firstname: <span id="firstname"></span></p>
           <p>Nickname: <span id="nickname"></span></p>
           <p>Middlename: <span id="middlename"></span></p>
-          <p>Lastname: <span id="lastname"></span></p>
+          <p>Lastname: <span id="lastname"></span></p> -->
           <!-- <p>Blood History: <span class="blood"></span></p> -->
-        </article>
+        <!-- </article>
       </section>
-    </div>
+    </div> -->
 
     <script src="script.js"></script>
   </body>

@@ -6,29 +6,28 @@
 
 /*Styling with grid*/
 
-thead {
-  display: none;
+#filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  padding: 10px;
+  font-size: 20px;
 }
 
-button,
-#filter,
-a {
-  padding: 0.3rem;
-  background-color: #ea9a60;
-  border: 1px solid #000;
-  border-radius: 0.3rem;
-  transition: 0.3s;
-  color: #000;
+.filter {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
 }
 
-button:hover,
-a:hover {
-  background-color: #000;
-  color: #ea9a60;
-  box-shadow: 1px 1px #ea9a60, 2px 2px #ea9a60, 3px 3px #ea9a60;
-  transform: translateX(-3px);
+.filter:hover {
+  background-color: #666;
 }
-
 body {
   background-image: url("assets/laney-smith-FwNUSwJDZIQ-unsplash.jpg");
   image-rendering: pixelated;
@@ -41,8 +40,11 @@ td {
 }
 h1 {
   color: white;
+  text-align: center;
 }
-
+h2 {
+  color: white;
+}
 #list {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -66,7 +68,7 @@ h1 {
 
 #list tbody tr {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   align-items: center;
   border: 1px solid #ddd;
   padding: 10px;
@@ -79,4 +81,25 @@ h1 {
 #list tbody img {
   max-width: 100%;
   height: auto;
+}
+
+/*Sorting*/
+[data-action] {
+  cursor: pointer;
+}
+
+#sorting th {
+  filter: grayscale(100%);
+}
+
+#sorting th.sortby {
+  text-decoration: underline;
+}
+
+#sorting th.sortby[data-sort-direction="asc"]::after {
+  content: "⇓";
+}
+
+#sorting th.sortby[data-sort-direction="desc"]::after {
+  content: "⇑";
 }
