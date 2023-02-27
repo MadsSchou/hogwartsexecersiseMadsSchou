@@ -60,8 +60,7 @@ function searchFieldInput(evt) {
 
 function searchList(list) {
   return list.filter((student) => {
-    // write to the list with only those elemnts in the allAnimals array that has properties containing the search frase
-    // comparing in uppercase so that m is the same as M
+
     return student.firstName.toUpperCase().includes(settings.search.toUpperCase()) || student.lastName.toUpperCase().includes(settings.search.toUpperCase()) || student.house.toUpperCase().includes(settings.search.toUpperCase());
   });
 }
@@ -203,21 +202,22 @@ function displayStudent(student) {
   document.querySelector("#list tbody").appendChild(clone);
 }
 
-// const popUp = document.querySelector("#pop_up");
-// popUp.classList.add("show");
-// //POPUP
-// function showDetails(student) {
-//   popUp.style.display = "block";
-//   popUp.querySelector(".student_img").src = student.imgSrc;
-//   popUp.querySelector("#fullname").textContent = `${student.firstName} ${student.nickName} ${student.middleName} ${student.lastName} - Nr. ${student.studentId}`;
-//   popUp.querySelector("#house").textContent = student.house;
-//   popUp.querySelector("#firstname").textContent = student.firstName;
-//   popUp.querySelector("#nickname").textContent = student.nickName;
-//   popUp.querySelector("#middlename").textContent = student.middleName;
-//   popUp.querySelector("#lastname").textContent = student.lastName;
-//   // popUp.querySelector("#pop_up .blood").textContent = student.blood;
-// }
+const popUp = document.querySelector("#pop_up");
+popUp.classList.add("show");
+//POPUP
+function showDetails(student) {
+popUp.style.display = "block";
+popUp.querySelector(".student_img").src = student.imgSrc;
+popUp.querySelector("#fullname").textContent = `${student.firstName} ${student.nickName} ${student.middleName} ${student.lastName} - Nr. ${student.studentId}`;
+popUp.querySelector("#house").textContent = student.house;
+popUp.querySelector("#firstname").textContent = student.firstName;
+popUp.querySelector("#nickname").textContent = student.nickName;
+popUp.querySelector("#middlename").textContent = student.middleName;
+popUp.querySelector("#lastname").textContent = student.lastName;
+popUp.querySelector("#pop_up .blood").textContent = student.blood;
+}
+//luk popUp
+//document.querySelector("#luk").addEventListener("click", () => (popUp.style.display = "none"));
+//displayList();
+document.querySelector('.student_img').addEventListener('click', openPopup);
 
-// // luk popup
-// document.querySelector("#luk").addEventListener("click", () => (popUp.style.display = "none"));
-// displayList();
