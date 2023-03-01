@@ -28,6 +28,7 @@
 .filter:hover {
   background-color: #666;
 }
+
 body {
   background-image: url("assets/laney-smith-FwNUSwJDZIQ-unsplash.jpg");
   image-rendering: pixelated;
@@ -39,21 +40,17 @@ td {
   color: white;
   font-family: Cormorant garamond;
   font-weight: 700;
-
-
 }
 h1 {
   color: white;
   text-align: center;
   font-family: Cormorant garamond;
   font-weight: 700;
-
 }
 h2 {
   color: white;
   font-family: Cormorant garamond;
   font-weight: 700;
-
 }
 #list {
   display: grid;
@@ -96,12 +93,10 @@ h2 {
 /*Sorting*/
 [data-action] {
   cursor: pointer;
-  
 }
 
 #sorting th {
   filter: grayscale(100%);
-  
 }
 
 #sorting th.sortby {
@@ -110,9 +105,75 @@ h2 {
 
 #sorting th.sortby[data-sort-direction="asc"]::after {
   content: "⇓";
-  
 }
 
 #sorting th.sortby[data-sort-direction="desc"]::after {
   content: "⇑";
+}
+
+/*Counter*/
+
+#counter_bar {
+  color: white;
+}
+
+/*popup*/
+/* #pop_up p,
+h4 {
+  color: white;
+  background-color: green;
+} */
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border: 1px solid black;
+  border-radius: 10px;
+  z-index: 10;
+  background-color: orange;
+  width: 700px;
+  max-width: 80%;
+}
+
+.modal.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.modal-header .title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal-header .close-button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal-body {
+  padding: 10px 15px;
+}
+.modal-body button {
+  background: none;
+  color: #4e3c1a;
+  font-family: Degular Display;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.modal-body h4 {
+  padding-right: 25em;
 }

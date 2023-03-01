@@ -16,7 +16,7 @@
       <div class="logo">
         <h1>Hogwarts Legacy</h1>
       </div>
-  <hr />
+  
     <div id="filter">
       Filter:
       <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
@@ -25,13 +25,33 @@
       <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
       <button class="filter" data-action="filter" data-filter="*">All</button>
     </div>
-<nav class="nav_search">
+<!-- <nav class="nav_search">
           <div class="search_wrapper">
             <h3>Searchbar:</h3>
             <input type="text" name="searchbar" id="searchbar" placeholder="Search here..." />
           </div>
         </nav>
 
+
+     <aside id="counter_bar">
+            <div class="count_status">
+            <h3>Status of Students</h3>
+            <hr>
+            <p>Total Num. of Students: <span id="total_count"></span></p>
+            <p>Expelled Students: <span id="expelled_count"></span></p>
+            <p>Displayed Students: <span id="displaying_count"></span></p>
+          </div>
+          <div class="count_house">
+            <h3>Members in each House</h3>
+            <hr>
+            <p>Gryffindor: <span id="gryffindor_count"></span></p>
+            <p>Hufflepuff: <span id="hufflepuff_count"></span></p>
+            <p>Ravenclaw: <span id="ravenclaw_count"></span></p>
+            <p>Slytherin: <span id="slytherin_count"></span></p>
+          </div>
+        </aside> -->
+
+<hr />
      <table id="list">
       <thead>
         <tr id="sorting">
@@ -58,20 +78,24 @@
         <td data-field="nickname">Nickname</td>
         <td data-field="lastname">Lastname</td>
         <td><img data-field="student_img" src="" alt="Student picture" /></td>
-                <td data-field="house">House</td>
+        <td data-field="house">House</td>
+        <!-- <td> <button class="show_more" data-field="show_more">Show more</button></td> -->
+        <td><button type="button" data-modal-target="#modal" >Show more</button></td>
+
+
 
       </tr>
     </template>
 
-     <div id="pop_up">
+      <!-- Popup for details on student -->
+ <!-- <div id="pop_up">
       <section class="popup_article">
-        <article class="student_info">
-          <button class="close">&times;</button>
+         <article class="student_info">
+           <button class="close">&times;</button>
           <div class="top">
-            <img class="student_img" src="" alt="" /> -->
-            <img class="crest_img" src="" alt="crests" data-badges="crest" /> -->
-           </div>
-        </article>
+            <img class="student_img" src="" alt="" />
+           </div> 
+         </article> 
         <article class="info_wrapper">
           <h3><span id="fullname"></span></h3>
           <h4>House: <span id="house"></span></h4>
@@ -83,7 +107,41 @@
          </article>
       </section>
     </div> 
+   	 -->
+      	<div id="primary" class="content-area">
+		<main id="main" class="site-main">
 
+      
+        <td><button type="button" data-modal-target="#modal" >Show more</button></td>
+
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="title"><h3>Student</h3></div>
+      
+      <button data-close-button class="close-button">Luk &times;</button>
+	  
+    </div>
+    <div class="modal-body">
+
+    <h3><span id="fullname"></span></h3>
+          <h4>House: <span id="house"></span></h4>
+          <p>Firstname: <span id="firstname"></span></p>
+          <p>Nickname: <span id="nickname"></span></p>
+          <p>Middlename: <span id="middlename"></span></p>
+          <p>Lastname: <span id="lastname"></span></p> 
+           <p>Blood History: <span class="blood"></span></p> 
+
+
+
+   <div id="overlay"></div> 
+   </div>
+
+</div>
+
+
+      	</section>	
+		</main>
+ 
     <script src="script.js"></script>
   </body>
 </html>

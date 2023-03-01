@@ -60,7 +60,6 @@ function searchFieldInput(evt) {
 
 function searchList(list) {
   return list.filter((student) => {
-
     return student.firstName.toUpperCase().includes(settings.search.toUpperCase()) || student.lastName.toUpperCase().includes(settings.search.toUpperCase()) || student.house.toUpperCase().includes(settings.search.toUpperCase());
   });
 }
@@ -101,6 +100,20 @@ function isSlytherin(student) {
   if (student.type === "slytherin") {
     return true;
   }
+}
+
+function displayList(students) {
+  // console.table(students);
+  // console.log(students);
+  // clear the list
+  document.querySelector("#student_list").innerHTML = "";
+
+  // count students
+  const studentCounted = studentCounter(students);
+  displayCount(studentCounted);
+
+  // build a new list
+  students.forEach(displayStudent);
 }
 
 function prepareObjects(data) {
@@ -148,6 +161,24 @@ function prepareObjects(data) {
     if (nickName) {
       student.nickName = nickName.charAt(0).toUpperCase() + nickName.slice(1).toLowerCase();
     }
+
+    // //Get Justin Finch-Fletchey
+    // if (nickName) {
+    //   student.nickName = nickName.charAt(0).toUpperCase() + nickName.slice(1).toLowerCase();
+    // }
+    // //Get Leanne Null
+    // if (nickName) {
+    //   student.nickName = nickName.charAt(0).toUpperCase() + nickName.slice(1).toLowerCase();
+    // }
+    // //Get Parvati Patil
+    // if (nickName) {
+    //   student.nickName = nickName.charAt(0).toUpperCase() + nickName.slice(1).toLowerCase();
+    // }
+    // //Get Padma Patil
+    // if (nickName) {
+    //   student.nickName = nickName.charAt(0).toUpperCase() + nickName.slice(1).toLowerCase();
+    // }
+
     //Studentsimg
     student.imgSrc = `./assets/images/${lastName.substring(0, firstName.indexOf(" ")).toLowerCase()}_.png`;
     student.imgSrc = `./assets/images/${lastName.substring(firstName.lastIndexOf(" ") + 1, firstName.lastIndexOf(" ") + 2).toLowerCase() + lastName.substring(firstName.lastIndexOf(" ") + 2).toLowerCase()}_${firstName.substring(0, 1).toUpperCase().toLowerCase()}.png`;
@@ -192,6 +223,7 @@ function displayList() {
 
 function displayStudent(student) {
   const clone = document.querySelector("template#student").content.cloneNode(true);
+
   clone.querySelector("[data-field=firstname]").innerHTML = student.firstName;
   clone.querySelector("[data-field=middlename]").innerHTML = student.middleName;
   clone.querySelector("[data-field=nickname]").innerHTML = student.nickName;
@@ -203,22 +235,42 @@ function displayStudent(student) {
   document.querySelector("#list tbody").appendChild(clone);
 }
 
-const popUp = document.querySelector("#pop_up");
-popUp.classList.add("show");
-//POPUP
-function showDetails(student) {
-popUp.style.display = "block";
-popUp.querySelector(".student_img").src = student.imgSrc;
-popUp.querySelector("#fullname").textContent = `${student.firstName} ${student.nickName} ${student.middleName} ${student.lastName} - Nr. ${student.studentId}`;
-popUp.querySelector("#house").textContent = student.house;
-popUp.querySelector("#firstname").textContent = student.firstName;
-popUp.querySelector("#nickname").textContent = student.nickName;
-popUp.querySelector("#middlename").textContent = student.middleName;
-popUp.querySelector("#lastname").textContent = student.lastName;
-popUp.querySelector("#pop_up .blood").textContent = student.blood;
-}
-//luk popUp
-//document.querySelector("#luk").addEventListener("click", () => (popUp.style.display = "none"));
-//displayList();
-document.querySelector('.student_img').addEventListener('click', openPopup);
+//popup
+// popop
 
+const openModalButtons = document.querySelectorAll("[data-modal-target]");
+const closeModalButtons = document.querySelectorAll("[data-close-button]");
+const overlay = document.getElementById("overlay");
+
+openModalButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const modal = document.querySelector(button.dataset.modalTarget);
+    openModal(modal);
+  });
+});
+
+overlay.addEventListener("click", () => {
+  const modals = document.querySelectorAll(".modal.active");
+  modals.forEach((modal) => {
+    closeModal(modal);
+  });
+});
+
+closeModalButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const modal = button.closest(".modal");
+    closeModal(modal);
+  });
+});
+
+function openModal(modal) {
+  if (modal == null) return;
+  modal.classList.add("active");
+  overlay.classList.add("active");
+}
+
+function closeModal(modal) {
+  if (modal == null) return;
+  modal.classList.remove("active");
+  overlay.classList.remove("active");
+}
