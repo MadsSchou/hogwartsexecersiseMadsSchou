@@ -16,7 +16,7 @@
 }
 
 .filter {
-  background-color: #444;
+  background-color: rgb(113, 70, 70);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -30,7 +30,7 @@
 }
 
 body {
-  background-image: url("assets/laney-smith-FwNUSwJDZIQ-unsplash.jpg");
+  background-image: url("assets/extrafeatures/laney-smith-FwNUSwJDZIQ-unsplash.jpg");
   image-rendering: pixelated;
 }
 
@@ -64,7 +64,7 @@ h2 {
 }
 
 #list thead th {
-  background-color: #ccc;
+  /* background-color: #ccc; */
   padding: 10px;
   text-align: center;
 }
@@ -96,7 +96,13 @@ h2 {
 }
 
 #sorting th {
-  filter: grayscale(100%);
+  background-color: rgb(113, 70, 70);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
 }
 
 #sorting th.sortby {
@@ -117,63 +123,60 @@ h2 {
   color: white;
 }
 
-/*popup*/
-/* #pop_up p,
-h4 {
-  color: white;
-  background-color: green;
-} */
+/*Popup*/
+#popup {
+  background-color: white;
+  position: fixed;
+  top: 70%;
+  right: 45%;
+}
+
+td[data-field="prefect"]::after {
+  content: "";
+  background-image: url("assets/prefect.svg");
+  width: 20px; /* set the width and height of the image */
+  height: 20px;
+  display: inline-block; /* make the image an inline-block element */
+}
+
+td[data-field="prefect"][data-prefect="false"]::after {
+  filter: grayscale(1);
+}
+
+.hide {
+  visibility: hidden;
+}
+
+/*prefect popup*/
 .modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  transition: 200ms ease-in-out;
-  border: 1px solid black;
-  border-radius: 10px;
-  z-index: 10;
-  background-color: orange;
-  width: 700px;
-  max-width: 80%;
-}
-
-.modal.active {
-  transform: translate(-50%, -50%) scale(1);
-}
-
-.modal-header {
-  padding: 10px 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid black;
-}
-
-.modal-header .title {
-  font-size: 1.25rem;
-  font-weight: bold;
-}
-
-.modal-header .close-button {
-  cursor: pointer;
-  border: none;
-  outline: none;
-  background: none;
-  font-size: 1.25rem;
-  font-weight: bold;
-}
-
-.modal-body {
-  padding: 10px 15px;
-}
-.modal-body button {
-  background: none;
-  color: #4e3c1a;
-  font-family: Degular Display;
-  position: absolute;
+  position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.modal-body h4 {
-  padding-right: 25em;
+
+.dialog {
+  box-shadow: 1px 1px 10px #333;
+  border-radius: 12px;
+  padding: 2em;
+  background-color: white;
+  position: relative;
+}
+
+button.closebutton {
+  position: absolute;
+  right: -1em;
+  top: -1em;
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+}
+
+.dialog h1 {
+  margin-top: 0;
 }

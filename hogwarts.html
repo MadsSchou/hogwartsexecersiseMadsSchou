@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="style.css" rel="stylesheet" />
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet" />
     <title>Hogwarts</title>
   </head>
   <body>
@@ -16,132 +16,116 @@
       <div class="logo">
         <h1>Hogwarts Legacy</h1>
       </div>
-  
-    <div id="filter">
-      Filter:
-      <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
-      <button class="filter" data-action="filter" data-filter="rawenclaw">Rawenclaw</button>
-      <button class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</button>
-      <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
-      <button class="filter" data-action="filter" data-filter="*">All</button>
-    </div>
-<!-- <nav class="nav_search">
-          <div class="search_wrapper">
-            <h3>Searchbar:</h3>
-            <input type="text" name="searchbar" id="searchbar" placeholder="Search here..." />
-          </div>
-        </nav>
+    </header>
 
+    <!--  Filter -->
 
-     <aside id="counter_bar">
-            <div class="count_status">
-            <h3>Status of Students</h3>
-            <hr>
-            <p>Total Num. of Students: <span id="total_count"></span></p>
-            <p>Expelled Students: <span id="expelled_count"></span></p>
-            <p>Displayed Students: <span id="displaying_count"></span></p>
-          </div>
-          <div class="count_house">
-            <h3>Members in each House</h3>
-            <hr>
-            <p>Gryffindor: <span id="gryffindor_count"></span></p>
-            <p>Hufflepuff: <span id="hufflepuff_count"></span></p>
-            <p>Ravenclaw: <span id="ravenclaw_count"></span></p>
-            <p>Slytherin: <span id="slytherin_count"></span></p>
-          </div>
-        </aside> -->
+    <main>
+      <div id="filter">
+        Filter:
+        <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
+        <button class="filter" data-action="filter" data-filter="rawenclaw">Rawenclaw</button>
+        <button class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</button>
+        <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
+        <button class="filter" data-action="filter" data-filter="*">All</button>
+      </div>
+      <nav class="nav_search">
+        <div class="search_wrapper">
+          <h3>Searchbar:</h3>
+          <input type="text" name="searchbar" id="searchbar" placeholder="Search here..." />
+        </div>
+      </nav>
 
-<hr />
-     <table id="list">
-      <thead>
-        <tr id="sorting">
-          <h2>Sorting:</h2>
-          <th data-action="sort" data-sort-direction="asc" data-sort="firstname">Firstname</th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="lastname">Lastname</th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="prefect">Prefect</th>
-          <th data-action="sort" data-sort-direction="asc" data-sort="inqsquad">Inqsquad</th>
+      <!--  Counting students -->
 
+      <aside id="counter_bar">
+        <div class="count_status">
+          <h3>Status of Students</h3>
+          <hr />
+          <p>Total Num. of Students: <span id="total_count"></span></p>
+          <p>Expelled Students: <span id="expelled_count"></span></p>
+          <p>Displayed Students: <span id="displaying_count"></span></p>
+        </div>
+        <div class="count_house">
+          <h3>Members in each House</h3>
+          <hr />
+          <p>Gryffindor: <span id="gryffindor_count"></span></p>
+          <p>Hufflepuff: <span id="hufflepuff_count"></span></p>
+          <p>Ravenclaw: <span id="ravenclaw_count"></span></p>
+          <p>Slytherin: <span id="slytherin_count"></span></p>
+        </div>
+      </aside>
+      -->
+
+      <hr />
+      <!--  Sorting  -->
+
+      <table id="list">
+        <thead>
+          <tr id="sorting">
+            <h2>Sorting:</h2>
+            <th data-action="sort" data-sort-direction="asc" data-sort="firstname">Firstname</th>
+            <th data-action="sort" data-sort-direction="asc" data-sort="lastname">Lastname</th>
+            <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
+            <th data-action="sort" data-sort-direction="asc" data-sort="prefect">Prefect</th>
+            <th data-action="sort" data-sort-direction="asc" data-sort="inqsquad">Inqsquad</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <!--  Student info-->
+
+      <template id="student">
+        <tr>
+          <td data-field="expel"><img src="assets/extrafeatures/expelgrey.svg" alt="expel" /></td>
+          <td data-field="prefect" data-prefect="false"><img src="assets/extrafeatures/prefectgrey.svg" alt="prefect" /></td>
+          <td data-field="firstname">Firstname</td>
+          <td data-field="middlename">Middlename</td>
+          <td data-field="nickname">Nickname</td>
+          <td data-field="lastname">Lastname</td>
+          <td><img data-field="student_img" src="" alt="Student picture" /></td>
+          <td data-field="house">House</td>
         </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
-  
+      </template>
+      <!--  Student popup-->
 
- 
+      <div id="popup">
+        <td data-field="expel"></td>
+        <td data-field="prefect" data-prefect="false"></td>
+        <p><img data-field="student_img" src="" alt="Student picture" /></p>
+        <p data-field="firstname">Firstname:</p>
+        <p data-field="middlename">Middlename:</p>
+        <p data-field="nickname">Nickname:</p>
+        <p data-field="lastname">Lastname:</p>
+        <p data-field="house">House:</p>
+      </div>
 
-    <template id="student">
-      <tr>
-        <td data-field="firstname">Firstname</td>
-        <td data-field="middlename">Middlename</td>
-        <td data-field="nickname">Nickname</td>
-        <td data-field="lastname">Lastname</td>
-        <td><img data-field="student_img" src="" alt="Student picture" /></td>
-        <td data-field="house">House</td>
-        <!-- <td> <button class="show_more" data-field="show_more">Show more</button></td> -->
-        <td><button type="button" data-modal-target="#modal" >Show more</button></td>
-
-
-
-      </tr>
-    </template>
-
-      <!-- Popup for details on student -->
- <!-- <div id="pop_up">
-      <section class="popup_article">
-         <article class="student_info">
-           <button class="close">&times;</button>
-          <div class="top">
-            <img class="student_img" src="" alt="" />
-           </div> 
-         </article> 
-        <article class="info_wrapper">
-          <h3><span id="fullname"></span></h3>
-          <h4>House: <span id="house"></span></h4>
-          <p>Firstname: <span id="firstname"></span></p>
-          <p>Nickname: <span id="nickname"></span></p>
-          <p>Middlename: <span id="middlename"></span></p>
-          <p>Lastname: <span id="lastname"></span></p> 
-           <p>Blood History: <span class="blood"></span></p> 
-         </article>
-      </section>
-    </div> 
-   	 -->
-      	<div id="primary" class="content-area">
-		<main id="main" class="site-main">
-
-      
-        <td><button type="button" data-modal-target="#modal" >Show more</button></td>
-
-  <div class="modal" id="modal">
-    <div class="modal-header">
-      <div class="title"><h3>Student</h3></div>
-      
-      <button data-close-button class="close-button">Luk &times;</button>
-	  
-    </div>
-    <div class="modal-body">
-
-    <h3><span id="fullname"></span></h3>
-          <h4>House: <span id="house"></span></h4>
-          <p>Firstname: <span id="firstname"></span></p>
-          <p>Nickname: <span id="nickname"></span></p>
-          <p>Middlename: <span id="middlename"></span></p>
-          <p>Lastname: <span id="lastname"></span></p> 
-           <p>Blood History: <span class="blood"></span></p> 
-
-
-
-   <div id="overlay"></div> 
-   </div>
-
-</div>
-
-
-      	</section>	
-		</main>
- 
+      <div id="remove_other" class="modal hide">
+        <div class="dialog">
+          <button class="closebutton">X</button>
+          <h1>Warning!</h1>
+          <p>
+            There can be only one prefected student of each gender <br />
+            Do you want to remove the other prefected student
+          </p>
+          <button id="removeotherbutton">Remove <span data-field="otherprefect">other</span></button>
+        </div>
+      </div>
+      <div id="remove_aorb" class="modal hide">
+        <div class="dialog">
+          <button class="closebutton">X</button>
+          <h1>Warning!</h1>
+          <p>
+            There can be not be anymore than two prefected students <br />
+            Do you want to remove the one of the existing prefected students
+          </p>
+          <div class="buttons"></div>
+          <button id="removea">Remove <span data-field="prefectA">A</span></button>
+          <button id="removeb">Remove <span data-field="prefectB">B</span></button>
+        </div>
+      </div>
+    </main>
     <script src="script.js"></script>
   </body>
 </html>
