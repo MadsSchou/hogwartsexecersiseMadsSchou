@@ -29,10 +29,6 @@
   background-color: #666;
 }
 
-#filter .buttons {
-  background-color: #666;
-}
-
 body {
   background-image: url("assets/extrafeatures/laney-smith-FwNUSwJDZIQ-unsplash.jpg");
   image-rendering: pixelated;
@@ -124,6 +120,12 @@ h2 {
 /*Counter*/
 
 #counter_bar {
+  color: white;
+}
+.count_status {
+  color: white;
+}
+#content_container {
   color: white;
 }
 

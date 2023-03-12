@@ -14,7 +14,7 @@
   <body>
     <header>
       <div class="logo">
-        <h1>Hogwarts Legacy</h1>
+        <h1>Hogwarts Student List</h1>
       </div>
     </header>
 
@@ -29,40 +29,31 @@
         <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
         <button class="filter" data-action="filter" data-filter="*">All</button>
         <div class="buttons">
-          <button class="filter" data-action="filter" data-filter="expelledStudents">Expelled Students</button>
-          <button class="filter" data-action="filter" data-filter="prefectStudents">Prefected Students</button>
+          <button class="filter" data-action="filter" data-filter="expelledstudents">Expelled Students</button>
+          <button class="filter" data-action="filter" data-filter="prefectedstudents">Prefected Students</button>
         </div>
       </div>
 
-      <nav class="nav_search">
-        <div class="search_wrapper">
-          <h3>Searchbar:</h3>
-          <input type="text" name="searchbar" id="searchbar" placeholder="Search here..." />
-        </div>
-      </nav>
-
-      <!--  Counting students -->
-
-      <aside id="counter_bar">
-        <div class="count_status">
-          <h3>Status of Students</h3>
-          <hr />
-          <p>Total Num. of Students: <span id="total_count"></span></p>
-          <p>Expelled Students: <span id="expelled_count"></span></p>
-          <p>Displayed Students: <span id="displaying_count"></span></p>
-        </div>
-        <div class="count_house">
-          <h3>Members in each House</h3>
-          <hr />
-          <p>Gryffindor: <span id="gryffindor_count"></span></p>
-          <p>Hufflepuff: <span id="hufflepuff_count"></span></p>
-          <p>Ravenclaw: <span id="ravenclaw_count"></span></p>
-          <p>Slytherin: <span id="slytherin_count"></span></p>
-        </div>
-      </aside>
-
       <hr />
       <!--  Sorting  -->
+      <section id="content_container">
+        <section class="left_side">
+          <div class="section_wrapper">
+            <div id="search_wrapper">
+              <label for="search">Search:</label>
+              <input type="text" id="search" name="search" size="10" />
+            </div>
+            <h3>House members in total: 34</h3>
+            <div id="info_box">
+              <p>Hufflepuff: <span data-field="hufflepuff">9</span> students</p>
+              <p>Rawenclaw: <span data-field="rawenclaw">8</span> students</p>
+              <p>Gryffindor: <span data-field="gryffindor">8</span> students</p>
+              <p>Slytherin: <span data-field="slytherin">9</span> students</p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <hr />
 
       <table id="list">
         <thead>
@@ -71,7 +62,6 @@
             <th data-action="sort" data-sort-direction="asc" data-sort="firstname">Firstname</th>
             <th data-action="sort" data-sort-direction="asc" data-sort="lastname">Lastname</th>
             <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
-            <th data-action="sort" data-sort-direction="asc" data-sort="prefect">Prefect</th>
             <th data-action="sort" data-sort-direction="asc" data-sort="inqsquad">Inqsquad</th>
           </tr>
         </thead>
@@ -86,10 +76,12 @@
           <td data-field="lastname">Lastname</td>
           <td><img data-field="student_img" src="" alt="Student picture" /></td>
           <td data-field="house">House</td>
+          <td data-field="inquisitorial"></td>
           <td data-field="expel"><img src="assets/extrafeatures/expel.svg" alt="expel" /></td>
           <td data-field="prefect" data-prefect="false"><img src="assets/extrafeatures/prefect.svg" alt="prefect" /></td>
         </tr>
       </template>
+
       <!--  Student popup-->
 
       <div id="popup">
@@ -97,10 +89,12 @@
         <p data-field="firstname">Firstname:</p>
         <p data-field="middlename">Middlename:</p>
         <p data-field="nickname">Nickname:</p>
+        <p data-field="lastname">Lastname:</p>
         <p data-field="gender">Gender</p>
         <p data-field="bloodstatus">Bloodstatus</p>
-        <p data-field="lastname">Lastname:</p>
         <p data-field="house">House:</p>
+        <p class="inquisitorial_squad"></p>
+
         <!-- <p data-field="expel"><img src="assets/extrafeatures/expel.svg" alt="expel" /></p>
         <p data-field="prefect" data-prefect="false"><img src="assets/extrafeatures/prefect.svg" alt="prefect" /></p> -->
       </div>

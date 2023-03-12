@@ -1,8 +1,5 @@
 "use strict";
 
-//hackTheSystem
-let isHacked = false;
-
 let bloodData;
 const settings = {
   filter: "all",
@@ -22,6 +19,7 @@ const globalProps = { chosenFilter: "*" };
 let popupStudent = null;
 let expelledStudents = [];
 let prefectStudents = [];
+let isHacked = false;
 
 let allStudents = [];
 const Student = {
@@ -34,9 +32,8 @@ const Student = {
   gender: null,
   expel: false,
   prefect: false,
-  inqSquad: false,
-  bloodstatus: "",
-  hacker: null,
+  inquisitorial: false,
+  bloodType: "",
 };
 
 // //_______GetData________//
@@ -54,7 +51,22 @@ async function getData() {
 
   prepareObjects(data);
   //  console.table(allStudents);
-  displayList(allStudents);
+  buildList();
+}
+//_______Bloodstatus_______//
+
+function addBloodStatus(student, bloodData) {
+  let bloodStatus = "muggle";
+
+  const isPure = bloodData.pure.some((element) => student.lastname === element);
+  const isHalf = bloodData.half.some((element) => student.lastname === element);
+
+  if (isHalf) {
+    bloodStatus = "half";
+  } else if (isPure) {
+    bloodStatus = "pure";
+  }
+  return bloodStatus;
 }
 
 //____________PREPARE DATA_______________//
@@ -136,6 +148,7 @@ function addEventListeners() {
   document.querySelector(`[data-filter="*"]`).addEventListener("click", klikFilter);
   document.querySelector(`[data-filter="expelledstudents"]`).addEventListener("click", klikFilter);
   document.querySelector(`[data-filter="prefectedstudents"]`).addEventListener("click", klikFilter);
+  document.querySelector("#search").addEventListener("input", searchFieldInput);
 }
 
 function klikFilter(evt) {
@@ -155,19 +168,73 @@ function buildList() {
   displayList(currentList);
 }
 
-// searchbar
+//_________ Searchbar_______//
 function searchFieldInput(evt) {
-  settings.search = evt.target.value;
-  buildList();
+  // write to the list with only those elements in the studentArray that has properties containing the search frase
+  displayList(
+    studentArray.filter((elm) => {
+      // comparing in uppercase so that m is the same as M
+      return elm.firstName.toUpperCase().includes(evt.target.value.toUpperCase()) || elm.lastName.toUpperCase().includes(evt.target.value.toUpperCase());
+    })
+  );
 }
+//_______Counter_______//
 
-function searchList(list) {
-  return list.filter((student) => {
-    return student.firstName.toUpperCase().includes(settings.search.toUpperCase()) || student.lastName.toUpperCase().includes(settings.search.toUpperCase()) || student.house.toUpperCase().includes(settings.search.toUpperCase());
+function updateCounter() {
+  let gryffindorCount = 0;
+  let slytherinCount = 0;
+  let hufflepuffCount = 0;
+  let ravenclawCount = 0;
+  let expelledCount = 0;
+  let nonexpelledCount = 0;
+
+  allStudents.forEach((student) => {
+    if (student.expel) {
+      expelledCount++;
+    } else {
+      nonexpelledCount++;
+      switch (student.house) {
+        case "Gryffindor":
+          gryffindorCount++;
+          break;
+        case "Slytherin":
+          slytherinCount++;
+          break;
+        case "Hufflepuff":
+          hufflepuffCount++;
+          break;
+        case "Ravenclaw":
+          ravenclawCount++;
+          break;
+      }
+    }
   });
-}
+  function getHouseCount(house) {
+    switch (house) {
+      case "Gryffindor":
+        return gryffindorCount;
+      case "Slytherin":
+        return slytherinCount;
+      case "Hufflepuff":
+        return hufflepuffCount;
+      case "Ravenclaw":
+        return ravenclawCount;
+    }
+  }
 
-//___________FILTER ON HOUSE____________//
+  // Update the Gryffindor count
+  document.querySelector('[data-field="gryffindor"]').textContent = getHouseCount("Gryffindor");
+
+  // Update the Slytherin count
+  document.querySelector('[data-field="slytherin"]').textContent = getHouseCount("Slytherin");
+
+  // Update the Hufflepuff count
+  document.querySelector('[data-field="hufflepuff"]').textContent = getHouseCount("Hufflepuff");
+
+  // Update the Ravenclaw count
+  document.querySelector('[data-field="ravenclaw"]').textContent = getHouseCount("Ravenclaw");
+}
+//___________Filter house__________//
 function filterList(listToFilter) {
   let theFilteredList = listToFilter;
 
@@ -204,11 +271,11 @@ function isSlytherin(student) {
   return student.house === "Slytherin";
 }
 function isExpelled(student) {
-  return student.house === "Expelled";
+  return student.expel === "Expelled";
 }
 
 function isPrefected(student) {
-  return student.house === "Prefected";
+  return student.prefect === "Prefected";
 }
 
 function displayList(students) {
@@ -266,7 +333,7 @@ function displayStudent(student) {
   clone.querySelector("[data-field=house]").innerHTML = student.house;
   clone.querySelector("[data-field=student_img]").src = student.imgSrc;
   clone.querySelector("[data-field=student_img]").addEventListener("click", () => showPopup(student));
-  ///___________EXPELL________; ///
+  //___________EXPELL________ //
   if (student.expel) {
     clone.querySelector("[data-field=expel]").innerHTML = "assets/extrafeatures/expel.svg";
   } else {
@@ -287,7 +354,7 @@ function displayStudent(student) {
     displayList(allStudents);
   }
 
-  //__________Prefects_________//
+  //__________Prefects Setup_________//
   clone.querySelector("[data-field=prefect]").dataset.prefect = student.prefect;
   clone.querySelector("[data-field=prefect]").addEventListener("click", clickPrefect);
   function clickPrefect() {
@@ -302,14 +369,13 @@ function displayStudent(student) {
   document.querySelector("#list tbody").appendChild(clone);
 }
 
-//Make Prefect
+//___________Make Prefect___________//
 function tryToMakeAPrefect(selectedStudent) {
   const prefects = allStudents.filter((student) => student.prefect);
 
   const numberOfPrefects = prefects.length;
   const other = prefects.filter((student) => student.type === selectedStudent.type).shift();
 
-  //if theres is another of the same type
   if (other !== undefined) {
     console.log("There can only be one prefect of each type");
     removeOther(other);
@@ -392,7 +458,7 @@ function tryToMakeAPrefect(selectedStudent) {
   }
 }
 
-//_________popup__________//
+//_________Popup__________//
 
 function showPopup(student) {
   const popup = document.querySelector("#popup");
@@ -409,40 +475,39 @@ function showPopup(student) {
   popup.addEventListener("click", () => (popup.style.display = "none"));
 }
 
-// // luk popup
-// document.querySelector("#luk").addEventListener("click", () => (popup.style.display = "none"));
-//---------------HACKING---------------------
-// function addMeToList() {
-//   let thisStudent = createObjectOfMe();
-//   allStudents.push(thisStudent);
-// }
+//_______HACKING_______//
+function hackTheSystem() {
+  console.log("hacking");
+  addMads();
+  randomizeBlood();
+}
+function addMads() {
+  let me = Object.create(studentArray);
+  let mystudentPicture = new Image();
+  me.firstName = "Mads";
+  me.lastName = "Olesen";
+  me.middleName = "Schou";
+  me.nickName = "Oeren";
+  me.house = "Rawenclaw";
+  me.bloodType = "pureblood";
+  me.prefect = true;
+  mystudentPicture.scr = "images/potter.png";
+  me.image = mystudentPicture.scr;
 
-// function createObjectOfMe() {
-//   return {
-//     firstname: "Mads",
-//     middlename: "Schou",
-//     lastname: "Olesen",
-//     nickname: "Oeren",
-//     gender: "boy",
-//     house: "slytherin",
-//     isPrefect: false,
-//     isInqSquad: false,
-//     bloodStatus: "Pureblood",
-//   };
-// }
+  studentArray.push(me);
+  buildList();
+}
 
-//-----------Bloodstatus------------
+function randomizeBlood() {
+  allStudents.forEach((student) => {
+    const bloodStatuses = ["pure", "half", "muggle"];
+    const newBloodStatus = bloodStatuses[Math.floor(Math.random() * bloodStatuses.length)];
+    if (student.bloodstatus === "pure") {
+      student.bloodstatus = newBloodStatus;
+    } else {
+      student.bloodstatus = "pure";
+    }
 
-function addBloodStatus(student, bloodData) {
-  let bloodStatus = "muggle";
-
-  const isPure = bloodData.pure.some((element) => student.lastname === element);
-  const isHalf = bloodData.half.some((element) => student.lastname === element);
-
-  if (isHalf) {
-    bloodStatus = "half";
-  } else if (isPure) {
-    bloodStatus = "pure";
-  }
-  return bloodStatus;
+    buildList();
+  });
 }
