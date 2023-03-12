@@ -1,122 +1,63 @@
 "use strict";
 
+//hackTheSystem
+let isHacked = false;
+
+let bloodData;
+const settings = {
+  filter: "all",
+  sortBy: "name",
+  sortDir: "asc",
+  expelled: false,
+};
 window.addEventListener("DOMContentLoaded", start);
 
 function start() {
   console.log("ready");
-  getData();
+  getBlood();
   addEventListeners();
 }
 const globalProps = { chosenFilter: "*" };
 
-const allStudents = [];
+let popupStudent = null;
+let expelledStudents = [];
+let prefectStudents = [];
 
+let allStudents = [];
 const Student = {
-  firstName: null,
-  lastName: null,
-  middleName: null,
-  nickName: null,
+  firstname: null,
+  lastname: null,
+  middlename: null,
+  nickname: null,
   image: null,
   house: null,
+  gender: null,
   expel: false,
   prefect: false,
-  gender: null,
+  inqSquad: false,
+  bloodstatus: "",
+  hacker: null,
 };
-function addEventListeners() {
-  document.querySelector(`[data-filter="hufflepuff"]`).addEventListener("click", klikFilter);
-  document.querySelector(`[data-filter="rawenclaw"]`).addEventListener("click", klikFilter);
-  document.querySelector(`[data-filter="gryffindor"]`).addEventListener("click", klikFilter);
-  document.querySelector(`[data-filter="slytherin"]`).addEventListener("click", klikFilter);
-  document.querySelector(`[data-filter="*"]`).addEventListener("click", klikFilter);
-}
 
-function klikFilter(evt) {
-  const filter = evt.target.dataset.filter;
-  console.log("Filtering:", filter);
-  setFilter(filter);
+// //_______GetData________//
+async function getBlood() {
+  const responsBlood = await fetch("https://petlatkea.dk/2021/hogwarts/families.json");
+  bloodData = await responsBlood.json();
+  getData();
 }
-
-function setFilter(filter) {
-  globalProps.chosenFilter = filter;
-  buildList();
-}
-
 async function getData() {
   const response = await fetch("https://petlatkea.dk/2021/hogwarts/students.json");
 
   const data = await response.json();
+
   console.log(data);
+
   prepareObjects(data);
-
-  console.table(allStudents);
-  buildList();
+  //  console.table(allStudents);
+  displayList(allStudents);
 }
 
-function buildList() {
-  console.log("BUILD LIST");
-  const currentList = filterList(allStudents);
-  displayList(currentList);
-}
-
-// searchbar
-function searchFieldInput(evt) {
-  settings.search = evt.target.value;
-  buildList();
-}
-
-function searchList(list) {
-  return list.filter((student) => {
-    return student.firstName.toUpperCase().includes(settings.search.toUpperCase()) || student.lastName.toUpperCase().includes(settings.search.toUpperCase()) || student.house.toUpperCase().includes(settings.search.toUpperCase());
-  });
-}
-//Filter on house
-
-function filterList(listToFilter) {
-  let theFilteredList = listToFilter;
-
-  if (globalProps.chosenFilter === "hufflepuff") {
-    theFilteredList = listToFilter.filter(isHufflepuff);
-  } else if (globalProps.chosenFilter === "rawenclaw") {
-    theFilteredList = listToFilter.filter(isRawenclaw);
-  } else if (globalProps.chosenFilter === "gryffindor") {
-    theFilteredList = listToFilter.filter(isGryffindor);
-  } else if (globalProps.chosenFilter === "slytherin") {
-    theFilteredList = listToFilter.filter(isSlytherin);
-  }
-
-  return theFilteredList;
-}
-
-function isHufflepuff(student) {
-  return student.house === "Hufflepuff";
-}
-
-function isRawenclaw(student) {
-  return student.house === "Ravenclaw";
-}
-
-function isGryffindor(student) {
-  return student.house === "Gryffindor";
-}
-
-function isSlytherin(student) {
-  return student.house === "Slytherin";
-}
-
-function displayList(students) {
-  // console.table(students);
-  // console.log(students);
-  // clear the list
-  document.querySelector("#student_list").innerHTML = "";
-
-  // count students
-  const studentCounted = studentCounter(students);
-  displayCount(studentCounted);
-
-  // build a new list
-  students.forEach(displayStudent);
-}
-
+//____________PREPARE DATA_______________//
 function prepareObjects(data) {
   data.forEach((jsonObject) => {
     const student = Object.create(Student);
@@ -177,14 +118,114 @@ function prepareObjects(data) {
     }
 
     // There is a student with no lastName "Leanne"
-
+    student.gender = jsonObject.gender.charAt(0).toUpperCase() + jsonObject.gender.slice(1).toLowerCase();
     student.house = jsonObject.house.trim().charAt(0).toUpperCase() + jsonObject.house.trim().slice(1).toLowerCase();
+    student.bloodstatus = addBloodStatus(student, bloodData);
 
     allStudents.push(student);
   });
 }
 
-//Sorting
+//___EventListeners____//
+
+function addEventListeners() {
+  document.querySelector(`[data-filter="hufflepuff"]`).addEventListener("click", klikFilter);
+  document.querySelector(`[data-filter="rawenclaw"]`).addEventListener("click", klikFilter);
+  document.querySelector(`[data-filter="gryffindor"]`).addEventListener("click", klikFilter);
+  document.querySelector(`[data-filter="slytherin"]`).addEventListener("click", klikFilter);
+  document.querySelector(`[data-filter="*"]`).addEventListener("click", klikFilter);
+  document.querySelector(`[data-filter="expelledstudents"]`).addEventListener("click", klikFilter);
+  document.querySelector(`[data-filter="prefectedstudents"]`).addEventListener("click", klikFilter);
+}
+
+function klikFilter(evt) {
+  const filter = evt.target.dataset.filter;
+  console.log("Filtering:", filter);
+  setFilter(filter);
+}
+
+function setFilter(filter) {
+  globalProps.chosenFilter = filter;
+  buildList();
+}
+
+function buildList() {
+  console.log("BUILD LIST");
+  const currentList = filterList(allStudents);
+  displayList(currentList);
+}
+
+// searchbar
+function searchFieldInput(evt) {
+  settings.search = evt.target.value;
+  buildList();
+}
+
+function searchList(list) {
+  return list.filter((student) => {
+    return student.firstName.toUpperCase().includes(settings.search.toUpperCase()) || student.lastName.toUpperCase().includes(settings.search.toUpperCase()) || student.house.toUpperCase().includes(settings.search.toUpperCase());
+  });
+}
+
+//___________FILTER ON HOUSE____________//
+function filterList(listToFilter) {
+  let theFilteredList = listToFilter;
+
+  if (globalProps.chosenFilter === "hufflepuff") {
+    theFilteredList = listToFilter.filter(isHufflepuff);
+  } else if (globalProps.chosenFilter === "rawenclaw") {
+    theFilteredList = listToFilter.filter(isRawenclaw);
+  } else if (globalProps.chosenFilter === "gryffindor") {
+    theFilteredList = listToFilter.filter(isGryffindor);
+  } else if (globalProps.chosenFilter === "slytherin") {
+    theFilteredList = listToFilter.filter(isSlytherin);
+  } else if (globalProps.chosenFilter === "expelledstudents") {
+    theFilteredList = listToFilter.filter(isExpelled);
+  } else if (globalProps.chosenFilter === "prefectedstudents") {
+    theFilteredList = listToFilter.filter(isPrefected);
+  }
+
+  return theFilteredList;
+}
+
+function isHufflepuff(student) {
+  return student.house === "Hufflepuff";
+}
+
+function isRawenclaw(student) {
+  return student.house === "Ravenclaw";
+}
+
+function isGryffindor(student) {
+  return student.house === "Gryffindor";
+}
+
+function isSlytherin(student) {
+  return student.house === "Slytherin";
+}
+function isExpelled(student) {
+  return student.house === "Expelled";
+}
+
+function isPrefected(student) {
+  return student.house === "Prefected";
+}
+
+function displayList(students) {
+  // console.table(students);
+  // console.log(students);
+  // clear the list
+  document.querySelector("#student_list").innerHTML = "";
+
+  // count students
+  const studentCounted = studentCounter(students);
+  displayCount(studentCounted);
+
+  // build a new list
+  students.forEach(displayStudent);
+}
+
+//__________Sorting__________//
 document.querySelectorAll("table th").forEach((header) => {
   header.addEventListener("click", () => {
     sortTable(header.dataset.sort);
@@ -216,23 +257,21 @@ function displayList() {
   filteredStudents.forEach(displayStudent);
 }
 
+//___________Display Student____________//
 function displayStudent(student) {
   const clone = document.querySelector("template#student").content.cloneNode(true);
 
   clone.querySelector("[data-field=firstname]").innerHTML = student.firstName;
-  clone.querySelector("[data-field=middlename]").innerHTML = student.middleName;
-  clone.querySelector("[data-field=nickname]").innerHTML = student.nickName;
   clone.querySelector("[data-field=lastname]").innerHTML = student.lastName;
   clone.querySelector("[data-field=house]").innerHTML = student.house;
   clone.querySelector("[data-field=student_img]").src = student.imgSrc;
   clone.querySelector("[data-field=student_img]").addEventListener("click", () => showPopup(student));
-
-  // Show  expel.svg or expel.svg
+  ///___________EXPELL________; ///
   if (student.expel) {
-    clone.querySelector("[data-field=expel]").src = "assets/expel.svg";
+    clone.querySelector("[data-field=expel]").innerHTML = "assets/extrafeatures/expel.svg";
   } else {
     // clone.querySelector("[data-field=expel]").textContent = "☆";
-    clone.querySelector("[data-field=expel]").src = "assets/expelgrey.svg";
+    clone.querySelector("[data-field=expel]").src = "assets/extrafeatures/expel.svg";
   }
 
   clone.querySelector("[data-field=expel]").addEventListener("click", clickExpel);
@@ -248,7 +287,7 @@ function displayStudent(student) {
     displayList(allStudents);
   }
 
-  //Prefects
+  //__________Prefects_________//
   clone.querySelector("[data-field=prefect]").dataset.prefect = student.prefect;
   clone.querySelector("[data-field=prefect]").addEventListener("click", clickPrefect);
   function clickPrefect() {
@@ -260,10 +299,10 @@ function displayStudent(student) {
     buildList();
   }
 
-  // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
 }
 
+//Make Prefect
 function tryToMakeAPrefect(selectedStudent) {
   const prefects = allStudents.filter((student) => student.prefect);
 
@@ -353,7 +392,7 @@ function tryToMakeAPrefect(selectedStudent) {
   }
 }
 
-//popup
+//_________popup__________//
 
 function showPopup(student) {
   const popup = document.querySelector("#popup");
@@ -365,9 +404,45 @@ function showPopup(student) {
   popup.querySelector("[data-field=lastname]").textContent = student.lastName;
   popup.querySelector("[data-field=house]").textContent = student.house;
   popup.querySelector("[data-field=student_img]").src = student.imgSrc;
+  popup.querySelector("[data-field=bloodstatus]").textContent = student.bloodstatus;
 
   popup.addEventListener("click", () => (popup.style.display = "none"));
 }
 
 // // luk popup
 // document.querySelector("#luk").addEventListener("click", () => (popup.style.display = "none"));
+//---------------HACKING---------------------
+// function addMeToList() {
+//   let thisStudent = createObjectOfMe();
+//   allStudents.push(thisStudent);
+// }
+
+// function createObjectOfMe() {
+//   return {
+//     firstname: "Mads",
+//     middlename: "Schou",
+//     lastname: "Olesen",
+//     nickname: "Oeren",
+//     gender: "boy",
+//     house: "slytherin",
+//     isPrefect: false,
+//     isInqSquad: false,
+//     bloodStatus: "Pureblood",
+//   };
+// }
+
+//-----------Bloodstatus------------
+
+function addBloodStatus(student, bloodData) {
+  let bloodStatus = "muggle";
+
+  const isPure = bloodData.pure.some((element) => student.lastname === element);
+  const isHalf = bloodData.half.some((element) => student.lastname === element);
+
+  if (isHalf) {
+    bloodStatus = "half";
+  } else if (isPure) {
+    bloodStatus = "pure";
+  }
+  return bloodStatus;
+}

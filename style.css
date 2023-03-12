@@ -29,6 +29,10 @@
   background-color: #666;
 }
 
+#filter .buttons {
+  background-color: #666;
+}
+
 body {
   background-image: url("assets/extrafeatures/laney-smith-FwNUSwJDZIQ-unsplash.jpg");
   image-rendering: pixelated;
@@ -123,24 +127,60 @@ h2 {
   color: white;
 }
 
-/*Popup*/
 #popup {
-  background-color: white;
   position: fixed;
-  top: 70%;
-  right: 45%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  display: none;
 }
 
-td[data-field="prefect"]::after {
+#popup img {
+  max-width: 100%;
+}
+
+#popup p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+#popup td[data-field="expel"],
+#popup td[data-field="prefect"] {
+  display: none;
+}
+
+#popup:after {
   content: "";
-  background-image: url("assets/prefect.svg");
-  width: 20px; /* set the width and height of the image */
-  height: 20px;
-  display: inline-block; /* make the image an inline-block element */
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 10px solid transparent;
+  border-bottom: 10px solid #fff;
 }
 
-td[data-field="prefect"][data-prefect="false"]::after {
+/*Prefect*/
+td[data-field="prefect"] img,
+td[data-field="expel"] img {
+  width: 40px;
+  height: 40px;
   filter: grayscale(1);
+}
+
+td[data-field="prefect"][data-prefect="true"] img,
+td[data-field="expel"][data-expel="false"] img {
+  filter: none;
+}
+
+td[data-field="prefect"],
+td[data-field="expel"] {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .hide {

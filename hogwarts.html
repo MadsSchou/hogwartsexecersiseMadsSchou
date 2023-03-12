@@ -28,7 +28,12 @@
         <button class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</button>
         <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
         <button class="filter" data-action="filter" data-filter="*">All</button>
+        <div class="buttons">
+          <button class="filter" data-action="filter" data-filter="expelledStudents">Expelled Students</button>
+          <button class="filter" data-action="filter" data-filter="prefectStudents">Prefected Students</button>
+        </div>
       </div>
+
       <nav class="nav_search">
         <div class="search_wrapper">
           <h3>Searchbar:</h3>
@@ -55,7 +60,6 @@
           <p>Slytherin: <span id="slytherin_count"></span></p>
         </div>
       </aside>
-      -->
 
       <hr />
       <!--  Sorting  -->
@@ -78,27 +82,27 @@
 
       <template id="student">
         <tr>
-          <td data-field="expel"><img src="assets/extrafeatures/expelgrey.svg" alt="expel" /></td>
-          <td data-field="prefect" data-prefect="false"><img src="assets/extrafeatures/prefectgrey.svg" alt="prefect" /></td>
           <td data-field="firstname">Firstname</td>
-          <td data-field="middlename">Middlename</td>
-          <td data-field="nickname">Nickname</td>
           <td data-field="lastname">Lastname</td>
           <td><img data-field="student_img" src="" alt="Student picture" /></td>
           <td data-field="house">House</td>
+          <td data-field="expel"><img src="assets/extrafeatures/expel.svg" alt="expel" /></td>
+          <td data-field="prefect" data-prefect="false"><img src="assets/extrafeatures/prefect.svg" alt="prefect" /></td>
         </tr>
       </template>
       <!--  Student popup-->
 
       <div id="popup">
-        <td data-field="expel"></td>
-        <td data-field="prefect" data-prefect="false"></td>
         <p><img data-field="student_img" src="" alt="Student picture" /></p>
         <p data-field="firstname">Firstname:</p>
         <p data-field="middlename">Middlename:</p>
         <p data-field="nickname">Nickname:</p>
+        <p data-field="gender">Gender</p>
+        <p data-field="bloodstatus">Bloodstatus</p>
         <p data-field="lastname">Lastname:</p>
         <p data-field="house">House:</p>
+        <!-- <p data-field="expel"><img src="assets/extrafeatures/expel.svg" alt="expel" /></p>
+        <p data-field="prefect" data-prefect="false"><img src="assets/extrafeatures/prefect.svg" alt="prefect" /></p> -->
       </div>
 
       <div id="remove_other" class="modal hide">
